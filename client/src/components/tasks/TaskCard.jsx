@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useTasks } from "../../context/TasksContext"
 import { Button, ButtonLink, Card } from "../ui"
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc)
 
 export function TaskCard({ task }) {
   const { deleteTask } = useTasks()
@@ -16,15 +19,7 @@ export function TaskCard({ task }) {
       </header>
       <p className="text-slate-300">{task.description}</p>
       {/* format date */}
-      <p>
-        {task.date &&
-          new Date(task.date).toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-      </p>
+      <p>{task.date && dayjs(task.date).utc().format("DD/MM/YYYY")}</p>
     </Card>
   )
 }

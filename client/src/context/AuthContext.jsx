@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   const signup = async (user) => {
     try {
       const res = await registerRequest(user)
-      console.log(res.data)
+      //console.log(res.data)
       setUser(res.data)
       setIsAuthenticated(true)
     } catch (error) {
@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
   const signin = async (user) => {
     try {
       const res = await loginRequest(user)
-      console.log(res)
+      // console.log(res)
       setIsAuthenticated(true)
       setUser(res.data)
     } catch (error) {

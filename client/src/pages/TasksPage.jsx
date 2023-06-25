@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
 import { useTasks } from "../context/TasksContext"
 import { TaskCard } from "../components/tasks/TaskCard"
@@ -9,7 +8,7 @@ export function TasksPage() {
 
   useEffect(() => {
     getTasks()
-  }, [tasks])
+  }, [])
 
   return (
     <>

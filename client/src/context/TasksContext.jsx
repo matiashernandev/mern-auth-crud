@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react"
 import {
   createTaskRequest,
@@ -11,8 +9,15 @@ import {
 
 const TaskContext = createContext()
 
+export const useTasks = () => {
+  const context = useContext(TaskContext)
+  if (!context) throw new Error("useTasks must be used within a TaskProvider")
+  return context
+}
+
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const getTasks = async () => {
     const res = await getTasksRequest()
@@ -39,6 +44,7 @@ export function TaskProvider({ children }) {
 
   const getTask = async (id) => {
     try {
+      setLoading(true)
       const res = await getTaskRequest(id)
       return res.data
     } catch (error) {
@@ -63,15 +69,10 @@ export function TaskProvider({ children }) {
         createTask,
         getTask,
         updateTask,
+        loading,
       }}
     >
       {children}
     </TaskContext.Provider>
   )
-}
-
-export const useTasks = () => {
-  const context = useContext(TaskContext)
-  if (!context) throw new Error("useTasks must be used within a TaskProvider")
-  return context
 }
